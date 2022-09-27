@@ -1,7 +1,13 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+
+// buttons
+const X = document.querySelector('#X').addEventListener('click', function () {
+    camera.position.x = camera.position.x + 10;
+});
+const Y = document.querySelector('#Y');
+const Z = document.querySelector('#Z');
 
 const canvas = document.querySelector(".webgl");
 // Debug
@@ -19,7 +25,7 @@ const near = 0.1;
 const far = 1000;
 
 camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.z = 3;
+camera.position.set(0, 0, 10);
 scene.add(camera);
 
 // renderer setup
@@ -59,24 +65,9 @@ const earthMesh = new THREE.Mesh(earthGeometry, earthMaterial);
 earthMesh.position.set(0, 0, 0);
 // const moonMesh = new THREE.Mesh(moonGeometry, moonMaterial);
 scene.add(earthMesh);
+console.log(earthMesh)
 // moonMesh.position.set(0.5, 0.5, 0.5);
 // scene.add(moonMesh);
-
-//satellite model
-const loader = new GLTFLoader();
-loader.load(
-    "/./texture/ISS_stationary.glb",
-    function (glb) {
-        const model = glb.scene;
-        model.position.set(0.5, 0.5, 0.5);
-        model.scale.set(0.005, 0.005, 0.005);
-        scene.add(model);
-    },
-    undefined,
-    function (error) {
-        console.error(error);
-    }
-);
 
 // cloud Geometry
 const cloudGeometry = new THREE.SphereGeometry(0.63, 32, 32);

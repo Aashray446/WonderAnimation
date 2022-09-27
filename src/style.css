@@ -18,3 +18,8 @@ body
     left: 0;
     outline: none;
 }
+.overlay {
+    display: block;
+    position: absolute;
+    z-index: 999;
+}
