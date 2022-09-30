@@ -4,6 +4,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as statellite from './models/satellite.js'
 import * as earth from './models/earth'
 const axios = require('axios');
+
+// Get Present Lat Long
 let long, lat;
 
 const getPositionOfISS = async () => {
@@ -79,46 +81,15 @@ window.addEventListener(
     false
 );
 
-// function convertLatLangToCartersian(lat, lon, radius) {
 
-//     var spherical = new THREE.Spherical(
-//         radius,
-//         THREE.Math.degToRad(90 - lon),
-//         THREE.Math.degToRad(lat)
-//     );
+function convertLatLangToCartersian(lat, lon, alt) {
+    const radius = 0.64 + alt;
+    const phi = (90 - lat) * (Math.PI / 180);
+    const theta = (lon + 180) * (Math.PI / 180);
 
-//     var vector = new THREE.Vector3();
-//     vector.setFromSpherical(spherical);
-
-//     return vector;
-// }
-
-// function convertLatLangToCartersian(lat, lon, alt) {
-
-//     const rad = 6378137.0
-//     const f = 1.0 / 298.257223563
-//     let cosLat = Math.cos(lat)
-//     let sinLat = Math.sin(lat)
-//     let FF = (1.0 - f) ** 2
-//     let C = 1 / Math.sqrt(cosLat ** 2 + FF * sinLat ** 2)
-//     let S = C * FF
-
-//     let x = (rad * C + alt) * cosLat * Math.cos(lon)
-//     let y = (rad * C + alt) * cosLat * Math.sin(lon)
-//     let z = (rad * S + alt) * sinLat
-//     x = x / 1000000;
-//     y = y / 1000000;
-//     z - z / 1000000;
-//     return { x, y, z }
-// }
-
-function convertLatLangToCartersian(latitude, longitude) {
-    let lat = (90 - latitude) * Math.PI / 180;
-    let lang = (180 + longitude) * Math.PI / 180;
-
-    let x = Math.sin(lat) * Math.cos(lang)
-    let y = -Math.sin(lat) * Math.sin(lang)
-    let z = -Math.cos(lat)
+    const x = -(radius * Math.sin(phi) * Math.cos(theta));
+    const y = radius * Math.cos(phi);
+    const z = radius * Math.sin(phi) * Math.sin(theta);
 
     return { x, y, z }
 }
@@ -146,7 +117,7 @@ const animate = () => {
 
     if (statelliteModel) {
         console.log(lat, long);
-        const vector = convertLatLangToCartersian(28.3949, 84.1240)
+        const vector = convertLatLangToCartersian(lat, long, 0.4)
         console.log(vector.x, vector.y, vector.z);
         statelliteModel.position.set(vector.x, vector.y, vector.z);
 
