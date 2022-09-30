@@ -12,11 +12,6 @@ const getPositionOfISS = async () => {
     lat = response.data.latitude;
 }
 
-let mesh = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 20, 20),
-    new THREE.MeshBasicMaterial({ color: 0xff0000 })
-)
-
 
 const canvas = document.querySelector(".webgl");
 // Debug
@@ -58,7 +53,6 @@ statellite.getModel.then((model) => {
     scene.add(model);
     statelliteModel = model;
 })
-earth.earthMesh.position.set(0, 0, 0);
 
 scene.add(earth.earthMesh)
 scene.add(earth.cloudMesh)
@@ -66,7 +60,7 @@ scene.add(earth.starMesh)
 
 
 // ambient light
-const ambientlight = new THREE.AmbientLight(0xffffff, 0.2);
+const ambientlight = new THREE.AmbientLight(0xffffff, 1);
 // point light
 const pointLight = new THREE.PointLight(0xffffff, 1);
 pointLight.position.set(5, 3, 5);
@@ -85,7 +79,7 @@ window.addEventListener(
     false
 );
 
-// function calcPosFromLatLonRad(radius, lat, lon) {
+// function convertLatLangToCartersian(lat, lon, radius) {
 
 //     var spherical = new THREE.Spherical(
 //         radius,
@@ -99,7 +93,7 @@ window.addEventListener(
 //     return vector;
 // }
 
-// function calcPosFromLatLonRad(lat, lon, alt) {
+// function convertLatLangToCartersian(lat, lon, alt) {
 
 //     const rad = 6378137.0
 //     const f = 1.0 / 298.257223563
@@ -112,9 +106,9 @@ window.addEventListener(
 //     let x = (rad * C + alt) * cosLat * Math.cos(lon)
 //     let y = (rad * C + alt) * cosLat * Math.sin(lon)
 //     let z = (rad * S + alt) * sinLat
-//     x = x / 100000;
-//     y = y / 100000;
-//     z - z / 100000;
+//     x = x / 1000000;
+//     y = y / 1000000;
+//     z - z / 1000000;
 //     return { x, y, z }
 // }
 
@@ -122,9 +116,9 @@ function convertLatLangToCartersian(latitude, longitude) {
     let lat = (90 - latitude) * Math.PI / 180;
     let lang = (180 + longitude) * Math.PI / 180;
 
-    let x = -Math.sin(lat) * Math.cos(lang)
-    let y = Math.sin(lat) * Math.sin(lang)
-    let z = Math.cos(lat)
+    let x = Math.sin(lat) * Math.cos(lang)
+    let y = -Math.sin(lat) * Math.sin(lang)
+    let z = -Math.cos(lat)
 
     return { x, y, z }
 }
@@ -132,25 +126,28 @@ function convertLatLangToCartersian(latitude, longitude) {
 
 
 
-// function foo() {
+function foo() {
 
-//     // your function code here
-//     getPositionOfISS();
+    // your function code here
+    getPositionOfISS();
 
-//     setTimeout(foo, 2000);
-// }
+    setTimeout(foo, 3000);
+}
 
-// foo();
+foo();
 
 
 // spinning animation
 const animate = () => {
     requestAnimationFrame(animate);
     earth.starMesh.rotation.y -= 0.0002;
+    // earth.earthMesh.rotation.y -= 0.0000727;
+    earth.cloudMesh.rotation.y -= 0.00005;
 
     if (statelliteModel) {
-        const vector = convertLatLangToCartersian(26.24, 90.38)
-        console.log(vector.x, vector.y, vector.z)
+        console.log(lat, long);
+        const vector = convertLatLangToCartersian(28.3949, 84.1240)
+        console.log(vector.x, vector.y, vector.z);
         statelliteModel.position.set(vector.x, vector.y, vector.z);
 
     }
