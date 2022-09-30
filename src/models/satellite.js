@@ -11,8 +11,8 @@ const getModel = new Promise((resolve, reject) => {
         "/./texture/ISS_stationary.glb",
         (glb) => {
             const model = glb.scene;
-            model.position.set(0.003, 0.003, 0.5);
-            model.scale.set(0.005, 0.005, 0.005);
+            model.position.set(0.68, 0.68, 0.68);
+            model.scale.set(0.00064, 0.00064, 0.00064);
             resolve(model);
         },
         (event) => console.log((event.loaded / event.total) * 100),
