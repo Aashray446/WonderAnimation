@@ -3,17 +3,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as statellite from './models/satellite.js'
 import * as earth from './models/earth'
-const axios = require('axios');
-
-// Get Present Lat Long
-let long, lat;
-
-const getPositionOfISS = async () => {
-    const response = await axios.get('https://api.wheretheiss.at/v1/satellites/25544');
-    long = response.data.longitude;
-    lat = response.data.latitude;
-}
-
+import * as locationService from './services/getSatLocation.js'
 
 const canvas = document.querySelector(".webgl");
 // Debug
@@ -35,9 +25,9 @@ camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 camera.position.set(0, 0, 10);
 scene.add(camera);
 
-// Co-ordinate Helper
-const axesHelper = new THREE.AxesHelper(5);
-scene.add(axesHelper);
+// // Co-ordinate Helper
+// const axesHelper = new THREE.AxesHelper(5);
+// scene.add(axesHelper);
 
 // renderer setup
 renderer = new THREE.WebGLRenderer({
@@ -82,30 +72,6 @@ window.addEventListener(
 );
 
 
-function convertLatLangToCartersian(lat, lon, alt) {
-    const radius = 0.64 + alt;
-    const phi = (90 - lat) * (Math.PI / 180);
-    const theta = (lon + 180) * (Math.PI / 180);
-
-    const x = -(radius * Math.sin(phi) * Math.cos(theta));
-    const y = radius * Math.cos(phi);
-    const z = radius * Math.sin(phi) * Math.sin(theta);
-
-    return { x, y, z }
-}
-
-
-
-
-function foo() {
-
-    // your function code here
-    getPositionOfISS();
-
-    setTimeout(foo, 3000);
-}
-
-foo();
 
 
 // spinning animation
@@ -116,11 +82,8 @@ const animate = () => {
     earth.cloudMesh.rotation.y -= 0.00005;
 
     if (statelliteModel) {
-        console.log(lat, long);
-        const vector = convertLatLangToCartersian(lat, long, 0.4)
-        console.log(vector.x, vector.y, vector.z);
-        statelliteModel.position.set(vector.x, vector.y, vector.z);
-
+        const vector = locationService.getxyzComponent();
+        statelliteModel.position.set(vector.x, vector.y, vector.z)
     }
 
     // moonMesh.rotation.y -= 0.003;
