@@ -150,7 +150,7 @@ const animate = () => {
 
     if (statelliteModel) {
         const vector = convertLatLangToCartersian(26.24, 90.38)
-        console.log(vector.x, vector.y, vector.z)
+        // console.log(vector.x, vector.y, vector.z)
         statelliteModel.position.set(vector.x, vector.y, vector.z);
 
     }
