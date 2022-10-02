@@ -3,7 +3,7 @@ import { SphereGeometry, MeshPhongMaterial, ImageUtils, Mesh, BackSide, MeshBasi
 
 
 // earth Mesh
-const earthGeometry = new SphereGeometry(1, 30, 30);
+const earthGeometry = new SphereGeometry(0.64, 20, 20);
 const earthMaterial = new MeshPhongMaterial({
     roughness: 1,
     metalness: 0,
@@ -14,7 +14,7 @@ const earthMaterial = new MeshPhongMaterial({
 
 
 // cloud Geometry
-const cloudGeometry = new SphereGeometry(1.1, 30, 30);
+const cloudGeometry = new SphereGeometry(0.66, 20, 20);
 const cloudMetarial = new MeshPhongMaterial({
     map: ImageUtils.loadTexture("./texture/earthCloud.png"),
     transparent: true,
