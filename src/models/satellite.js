@@ -12,7 +12,7 @@ const getModel = new Promise((resolve, reject) => {
         (glb) => {
             const model = glb.scene;
             model.position.set(0.63, 0.63, 0.63);
-            model.scale.set(0.00064, 0.00064, 0.00064);
+            model.scale.set(0.001, 0.001, 0.001);
             resolve(model);
         },
         (event) => console.log((event.loaded / event.total) * 100),

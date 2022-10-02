@@ -17,7 +17,7 @@ let statelliteModel;
 scene = new THREE.Scene();
 
 // camera setup
-const fov = 40;
+const fov = 5;
 const aspect = window.innerWidth / window.innerHeight;
 const near = 0.1;
 const far = 1000;
@@ -61,7 +61,7 @@ orbits.sendOribits().then((orbits) => {
 
 
 // ambient light
-const ambientlight = new THREE.AmbientLight(0xffffff, 1);
+const ambientlight = new THREE.AmbientLight(0xffffff, 0.2);
 // point light
 const pointLight = new THREE.PointLight(0xffffff, 1);
 pointLight.position.set(5, 3, 5);
@@ -93,6 +93,8 @@ const animate = () => {
     if (statelliteModel) {
         const vector = locationService.getxyzComponent();
         statelliteModel.position.set(vector.x, vector.y, vector.z)
+        controls.target = statelliteModel.position;
+        controls.update();
     }
 
     // moonMesh.rotation.y -= 0.003;
