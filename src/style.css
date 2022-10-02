@@ -28,10 +28,14 @@ body {
     float: right;
     background: #ffffff;
     opacity: 40%;
-    width: 300px;
+    width: 240px;
     border-radius: 0 0 10px 10px;
     margin-right: 24px;
     padding: 16px;
+}
+.descp-box span {
+    font-size: 12px;
+    letter-spacing: 2px;
 }
 
 .overlay {
@@ -54,10 +58,9 @@ body {
 }
 
 .slidecontainer {
-    width: 90%;
+    width: 100%;
     padding-right: 5%;
     padding-left: 5%;
-    padding-top: 1%;
 }
 
 .slider {
@@ -65,7 +68,7 @@ body {
     appearance: none;
     margin-bottom: 16px;
     width: 100%;
-    height: 16px;
+    height: 14px;
     background: #d3d3d3;
     outline: none;
     opacity: 0.7;
@@ -98,7 +101,7 @@ body {
 
 .footer {
     position: absolute;
-    bottom: 1%;
+    bottom: 5%;
     width: 100%;
     height: 15%;
 }
@@ -119,3 +122,24 @@ body {
 .slider-value-box:hover {
     background: white;
 }
+
+.switch {
+    display: inline-flex;
+    background: #5e5b5b;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    margin-bottom: 4px;
+    cursor: pointer;
+    transition: 0.5s all ease-out;
+}
+
+.switch:hover {
+    background: #000000;
+    color: #ffffff;
+    border: 1px solid #000000;
+}
+
+
+
