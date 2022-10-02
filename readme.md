@@ -1,5 +1,4 @@
-# Three.js Starter
-Courtesy of Bruno Simon of https://threejs-journey.xyz/
+# Track the ISS in 3d
 
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
