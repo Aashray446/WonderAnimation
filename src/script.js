@@ -166,3 +166,14 @@ const render = function () {
 };
 
 animate();
+
+
+//for slider
+const slider_box = document.querySelector(".slider-value-box");
+const range = document.querySelector("#myRange");
+
+range.addEventListener("input", () => {
+    const value = range.value;
+    slider_box.style.left = value + "%";
+});
+
