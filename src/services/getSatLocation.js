@@ -79,12 +79,22 @@ export const getOrbits = () => {
     })
 }
 
+// Dom Manipulation
+const latContainer = document.querySelector('#lat');
+const longContainer = document.querySelector('#long');
+const heightContainer = document.querySelector('#alt');
+
+
 export default (function keepUpdating() {
 
     // your function code here
     updateLatLong().then((result) => {
         vector = result;
     })
+
+    latContainer.innerHTML = lat;
+    longContainer.innerHTML = long;
+    heightContainer.innerHTML = height;
 
     setTimeout(keepUpdating, 3000);
 })();
