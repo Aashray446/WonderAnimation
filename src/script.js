@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as statellite from './models/satellite.js'
 import * as earth from './models/earth'
 import * as locationService from './services/getSatLocation.js'
-import { LineCurve3 } from 'three/src/extras/curves/LineCurve3.js';
+import * as orbits from './models/curve.js'
 
 const canvas = document.querySelector(".webgl");
 // Debug
@@ -50,6 +50,13 @@ statellite.getModel.then((model) => {
 scene.add(earth.earthMesh)
 scene.add(earth.cloudMesh)
 scene.add(earth.starMesh)
+
+// orbits
+orbits.sendOribits().then((orbits) => {
+    scene.add(orbits.prevOrbit)
+    scene.add(orbits.currentOrbit)
+    scene.add(orbits.nextOrbit)
+})
 
 
 

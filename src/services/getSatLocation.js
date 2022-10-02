@@ -1,10 +1,9 @@
-const axios = require('axios');
 import { getGroundTracks, getSatelliteInfo } from 'tle.js';
 const moment = require('moment');
 const tle = require('./tleData').tle;
+import { Vector3 } from 'three';
 
 let long, lat, height, velocity, vector;
-let pathDetails = [];
 
 // this should be taken from user to get the location of the satellite on desired date and time
 let ts = moment("10/15/2014 9:00:59", "M/D/YYYY H:mm:ss").valueOf();
@@ -46,6 +45,39 @@ function convertLatLangToCartersian(lat, lon, alt) {
     return { x, y, z }
 }
 
+
+// const convertTocoordinates = async () => {
+
+//    const threeOrbitsArr =  await getGroundTracks({tle: tle, stepMS: 10000, isLngLatFormat: true });
+
+//     threeOrbitsArr.forEach(orbits => {
+
+//    });
+
+// }
+
+export const getOrbits = () => {
+    let pathDetails = [];
+    return new Promise((resolve, reject) => {
+        getGroundTracks({
+            tle: tle,
+            stepMS: 100000,
+            isLngLatFormat: true,
+        }).then(async function (threeOrbitsArr) {
+            // Do stuff with three orbits array here.
+            await threeOrbitsArr.map(async (orbit) => {
+                const orbits = [];
+                await orbit.forEach(element => {
+                    const { x, y, z } = convertLatLangToCartersian(element[1], element[0], height)
+                    orbits.push(new Vector3(x, y, z))
+                });
+                pathDetails.push(orbits)
+            })
+            resolve(pathDetails)
+        });
+
+    })
+}
 
 export default (function keepUpdating() {
 
