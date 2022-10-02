@@ -4,19 +4,19 @@ import { getOrbits } from '../services/getSatLocation';
 
 const prevMaterial = new LineBasicMaterial({
     color: 0xffffff,
-    linewidth: 10,
+    linewidth: 100,
     linecap: 'round', //ignored by WebGLRenderer
     linejoin: 'round' //ignored by WebGLRenderer
 });
 const currentMaterial = new LineBasicMaterial({
     color: 0xff0000,
-    linewidth: 10,
+    linewidth: 100,
     linecap: 'round', //ignored by WebGLRenderer
     linejoin: 'round' //ignored by WebGLRenderer
 });
 const nextMaterial = new LineBasicMaterial({
     color: 0x0000ff,
-    linewidth: 10,
+    linewidth: 100,
     linecap: 'round', //ignored by WebGLRenderer
     linejoin: 'round' //ignored by WebGLRenderer
 });
