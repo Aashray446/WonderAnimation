@@ -1,6 +1,9 @@
 import { Vector3, LineBasicMaterial, Line } from "three";
 
 
+
+
+
 const material = new LineBasicMaterial({
     color: 0x0000ff
 });

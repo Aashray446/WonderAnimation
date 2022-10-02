@@ -1,10 +1,10 @@
 const axios = require('axios');
-const { getSatelliteInfo } = require("tle.js");
+import { getGroundTracks, getSatelliteInfo } from 'tle.js';
 const moment = require('moment');
 const tle = require('./tleData').tle;
 
 let long, lat, height, velocity, vector;
-
+let pathDetails = [];
 
 // this should be taken from user to get the location of the satellite on desired date and time
 let ts = moment("10/15/2014 9:00:59", "M/D/YYYY H:mm:ss").valueOf();
