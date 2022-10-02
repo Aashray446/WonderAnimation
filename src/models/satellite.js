@@ -8,7 +8,7 @@ const getModel = new Promise((resolve, reject) => {
 
 
     loader.load(
-        "/./texture/ISS_stationary.glb",
+        "./texture/ISS_stationary.glb",
         (glb) => {
             const model = glb.scene;
             model.position.set(0.63, 0.63, 0.63);
