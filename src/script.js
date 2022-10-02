@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as statellite from './models/satellite.js'
 import * as earth from './models/earth'
 import * as locationService from './services/getSatLocation.js'
+import { LineCurve3 } from 'three/src/extras/curves/LineCurve3.js';
 
 const canvas = document.querySelector(".webgl");
 // Debug
@@ -51,6 +52,7 @@ scene.add(earth.cloudMesh)
 scene.add(earth.starMesh)
 
 
+
 // ambient light
 const ambientlight = new THREE.AmbientLight(0xffffff, 1);
 // point light
@@ -90,7 +92,6 @@ const animate = () => {
     controls.update();
     render();
 };
-
 // rendering
 const render = function () {
     renderer.render(scene, camera);

@@ -1,15 +1,9 @@
 const axios = require('axios');
 const { getSatelliteInfo } = require("tle.js");
 const moment = require('moment');
+const tle = require('./tleData').tle;
 
 let long, lat, height, velocity, vector;
-
-
-// Should be periodically fetched from api
-// https://celestrak.org/NORAD/elements/stations.txt
-const tle = `ISS (ZARYA)             
-1 25544U 98067A   22274.89635759 -.00065216  00000+0 -11607-2 0  9997
-2 25544  51.6407 167.9021 0003213 257.6590 179.5260 15.49594169361737`;
 
 
 // this should be taken from user to get the location of the satellite on desired date and time
@@ -62,6 +56,7 @@ export default (function keepUpdating() {
 
     setTimeout(keepUpdating, 3000);
 })();
+
 
 
 
