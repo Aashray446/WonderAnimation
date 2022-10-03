@@ -7,6 +7,8 @@ import * as locationService from './services/getSatLocation.js'
 import * as orbits from './models/curve.js'
 
 const canvas = document.querySelector(".webgl");
+
+
 // Debug
 let scene;
 let camera;
@@ -82,6 +84,21 @@ window.addEventListener(
 
 
 
+function changeControl(control) {
+    if (statelliteModel) {
+        if (control === 'satellite') {
+            controls.target = statelliteModel.position;
+            controls.update();
+            return;
+        }
+    }
+    controls.target = earth.earthMesh.position;
+    controls.update();
+}
+
+
+
+
 
 // spinning animation
 const animate = () => {
@@ -93,14 +110,15 @@ const animate = () => {
     if (statelliteModel) {
         const vector = locationService.getxyzComponent();
         statelliteModel.position.set(vector.x, vector.y, vector.z)
-        controls.target = statelliteModel.position;
-        controls.update();
     }
 
     // moonMesh.rotation.y -= 0.003;
     controls.update();
     render();
 };
+
+
+
 // rendering
 const render = function () {
     renderer.render(scene, camera);
@@ -108,13 +126,17 @@ const render = function () {
 
 animate();
 
-
+// Should be replaced in seprate module
 //for slider
 const slider_box = document.querySelector(".slider-value-box");
 const range = document.querySelector("#myRange");
+const satButton = document.getElementById("satViewButton");
+const earthViewButton = document.getElementById("earthViewButton");
 
 range.addEventListener("input", () => {
     const value = range.value;
     slider_box.style.left = value + "%";
 });
+satButton.addEventListener("click", () => changeControl('satellite'));
+earthViewButton.addEventListener("click", () => changeControl('earth'));
 
