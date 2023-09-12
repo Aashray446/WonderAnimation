@@ -14,3 +14,4 @@ npm run dev
 # Build for production in the dist/ directory
 npm run build
 ```
+![image](https://github.com/Aashray446/WonderAnimation/assets/69245931/9b075d77-a15d-4e30-88f5-6f676e43c99d)
